@@ -245,6 +245,7 @@ public class Main {
 
         }
 
+
         // ================== game setup =========================================
         Scanner scanToStart = new Scanner(System.in);
         System.out.println("Press enter to start");
@@ -301,9 +302,39 @@ public class Main {
             // //-------------------------------------------------------------------------------------------------------------------
             // // set mode with bomb indicators
             // //-----------------------------------------------
-            matrixClone[r][c] = setMatrix2[r][c];
-            if (setMatrix2[r][c] == "O") {
-                matrixClone[r][c] = "Loser";
+            // matrixClone[r][c] = setMatrix2[r][c];
+            // if (setMatrix2[r][c] == "O") {
+            //     matrixClone[r][c] = "Loser";
+            //     for (int i = 0; i < boom.length; i++) {
+            //         for (int j = 0; j < 1; j++) {
+            //             System.out.printf(boom[i][j]);
+            //         }
+            //         System.out.println();
+            //     }
+            //     System.out.println("You lose :(");
+            //     break;
+            // } else {
+            //     matrixClone[r][c] = setMatrix2[r][c];
+            //     for (int i = 0; i < matrixClone.length; i++) {
+            //         for (int j = 0; j < matrixClone.length; j++) {
+            //             System.out.printf("|%s|", matrixClone[i][j]);
+            //         }
+            //         System.out.println();
+            //     }
+            //     System.out.println("You're safe... for now...");
+            //     System.out.println("enter a row number between 1-10");
+            // }
+
+            var coordValue = String.valueOf(intMatrix[r -1][c -1]);
+            matrixClone[r][c] = coordValue ;
+            if (intMatrix[r -1][c -1] == 9) {
+                matrixClone[r][c] = "!";
+                for (int i = 0; i < matrixClone.length; i++) {
+                    for (int j = 0; j < matrixClone.length; j++) {
+                        System.out.printf("|%s|", matrixClone[i][j]);
+                    }
+                    System.out.println();
+                }
                 for (int i = 0; i < boom.length; i++) {
                     for (int j = 0; j < 1; j++) {
                         System.out.printf(boom[i][j]);
@@ -313,7 +344,7 @@ public class Main {
                 System.out.println("You lose :(");
                 break;
             } else {
-                matrixClone[r][c] = setMatrix2[r][c];
+                matrixClone[r][c] = coordValue;
                 for (int i = 0; i < matrixClone.length; i++) {
                     for (int j = 0; j < matrixClone.length; j++) {
                         System.out.printf("|%s|", matrixClone[i][j]);
