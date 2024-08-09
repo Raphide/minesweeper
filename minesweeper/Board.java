@@ -54,6 +54,15 @@ public class Board {
             { "░░░░░░░░░░░-----░░░░░░░-------░░░░░░░----░░░░░-----░░░░░-░░░-" }
     };
 
+    private String[][] winner = {
+            { "██╗    ██╗██╗███╗   ██╗███╗   ██╗███████╗██████╗ ██╗" },
+            { "██║    ██║██║████╗  ██║████╗  ██║██╔════╝██╔══██╗██║" },
+            { "██║ █╗ ██║██║██╔██╗ ██║██╔██╗ ██║█████╗  ██████╔╝██║" },
+            { "██║███╗██║██║██║╚██╗██║██║╚██╗██║██╔══╝  ██╔══██╗╚═╝" },
+            { "╚███╔███╔╝██║██║ ╚████║██║ ╚████║███████╗██║  ██║██╗" },
+            { " ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝╚═╝" }
+    };
+
     private ArrayList<String> enteredCoordinates = new ArrayList<>();
 
     public Board() {
@@ -145,12 +154,6 @@ public class Board {
 
     }
 
-    public void updateGameBoard() {
-
-        printGameBoard();
-
-    }
-
     public void takeTurn() {
 
         Scanner scanner = new Scanner(System.in);
@@ -222,23 +225,28 @@ public class Board {
                 printGameBoard();
                 hasWon();
             }
-            if(hasWon()== false){
+            if (hasWon() == false) {
                 System.out.printf(coordinate + "\n");
-            System.out.println("You're safe... for now...");
-            // System.out.printf(enteredCoordinates.toString() + "\n");
-            System.out.println("enter a row letter between A-J"); 
-            } else{
+                System.out.println("You're safe... for now...");
+                // System.out.printf(enteredCoordinates.toString() + "\n");
+                System.out.println("enter a row letter between A-J");
+            } else {
+                for (int i = 0; i < winner.length; i++) {
+                    for (int j = 0; j < 1; j++) {
+                        System.out.printf(winner[i][j]);
+                    }
+                    System.out.println();
+                }
                 System.out.println("YOU WIN!!!");
                 break;
             }
-           
         }
 
     }
 
     public boolean hasWon() {
         if (enteredCoordinates.size() == 90) {
-            return true; 
+            return true;
         }
         return false;
     }
