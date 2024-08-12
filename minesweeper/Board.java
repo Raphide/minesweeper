@@ -2,8 +2,10 @@ package minesweeper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Board {
 
@@ -64,12 +66,38 @@ public class Board {
     };
 
     private ArrayList<String> enteredCoordinates = new ArrayList<>();
+    private boolean lost = false;
+
+    public String[][] getMatrix() {
+        return matrix;
+    }
+
+    public void setMatrix(String[][] matrix) {
+        this.matrix = matrix;
+    }
+
+    public int[][] getIntMatrix() {
+        return intMatrix;
+    }
+
+    public void setIntMatrix(int[][] intMatrix) {
+        this.intMatrix = intMatrix;
+    }
+
+    public ArrayList<String> getEnteredCoordinates() {
+        return enteredCoordinates;
+    }
+
+    public void setEnteredCoordinates(ArrayList<String> enteredCoordinates) {
+        this.enteredCoordinates = enteredCoordinates;
+    }
 
     public Board() {
         this.header = header;
         this.matrix = matrix;
         this.enteredCoordinates = enteredCoordinates; // this will store positions that have already been used.
         this.intMatrix = intMatrix; // this will be the hidden board
+        this.lost = lost;
     }
 
     public void printGameBoard() {
@@ -138,7 +166,8 @@ public class Board {
 
     }
 
-    public void setupGameBoard() {
+    public void startMenu() {
+
         // j = columns
         // i = rows
         for (int i = 0; i < header.length; i++) {
@@ -149,9 +178,67 @@ public class Board {
         }
         System.out.println("");
 
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("enter \"N\" to start");
+        System.out.println("enter \"E\" to exit");
+        String start = scanner.next();
+        switch (start.charAt(0)) {
+            case 'e':
+            case 'E':
+                System.out.println("Closing application");
+                System.exit(0);
+            case 'n':
+            case 'N':
+                setupGameBoard();
+                playGame();
+        }
+
+    }
+
+    public void playAgain() {
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Play Again?");
+        System.out.println("");
+        System.out.println("enter \"N\" to start a new game");
+        System.out.println("enter \"E\" to exit");
+        String start = scanner.next();
+        switch (start.charAt(0)) {
+            case 'e':
+            case 'E':
+                System.out.println("Closing application");
+                System.exit(0);
+
+            case 'n':
+            case 'N':
+
+                getMatrix();
+                getIntMatrix();
+                getEnteredCoordinates();
+
+                setMatrix(matrix);
+                setIntMatrix(intMatrix);
+                setEnteredCoordinates(enteredCoordinates);
+
+                setupGameBoard();
+                playGame();
+
+        }
+
+    }
+
+    public void setupGameBoard() {
+
         createIntMatrix();
         printGameBoard();
+    }
 
+    public void playGame() {
+        if (hasWon() == false || lost == false) {
+            takeTurn();
+        } else {
+            playAgain();
+        }
     }
 
     public void takeTurn() {
@@ -189,7 +276,8 @@ public class Board {
 
             System.out.println("enter a column number between 1-10");
             int c = scanner.nextInt();
-            if (c > 10) {
+
+            if (c > 10 || c == 0) {
                 System.out.println("Please enter a valid number");
                 System.out.println("enter a row letter between A-J");
                 continue;
@@ -218,6 +306,10 @@ public class Board {
                     System.out.println();
                 }
                 System.out.println("You lose :(");
+                // playAgain();
+
+                // System.exit(0);
+                hasLost();
                 break;
             } else {
                 matrix[r][c] = coordValue;
@@ -225,12 +317,12 @@ public class Board {
                 printGameBoard();
                 hasWon();
             }
-            if (hasWon() == false) {
+            if (hasWon() == false || lost == false) {
                 System.out.printf(coordinate + "\n");
                 System.out.println("You're safe... for now...");
                 // System.out.printf(enteredCoordinates.toString() + "\n");
                 System.out.println("enter a row letter between A-J");
-            } else {
+            } else if (hasWon() == true) {
                 for (int i = 0; i < winner.length; i++) {
                     for (int j = 0; j < 1; j++) {
                         System.out.printf(winner[i][j]);
@@ -238,7 +330,8 @@ public class Board {
                     System.out.println();
                 }
                 System.out.println("YOU WIN!!!");
-                break;
+            } else {
+                playAgain();
             }
         }
 
@@ -247,7 +340,12 @@ public class Board {
     public boolean hasWon() {
         if (enteredCoordinates.size() == 90) {
             return true;
+        } else {
+            return false;
         }
-        return false;
+    }
+
+    public boolean hasLost() {
+        return lost = true;
     }
 }

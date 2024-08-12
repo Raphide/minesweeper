@@ -1,19 +1,24 @@
 package minesweeper;
 
-import java.util.HashMap;
-import java.util.Scanner;
-
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         Board newGame = new Board();
+        while (newGame.hasWon() == false || newGame.hasLost() == false) {
+            newGame.startMenu();
+            newGame.playAgain();
+            continue;
 
-        newGame.setupGameBoard();
-       
-        while(newGame.hasWon()==false){
-            newGame.takeTurn();
         }
 
+        // Board newGame = new Board();
+
+        // newGame.startMenu();
+
+        // while(newGame.hasWon()==false){
+        // newGame.takeTurn();
+        // }
+
     }
-    
+
 }
