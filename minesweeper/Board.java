@@ -68,6 +68,14 @@ public class Board {
     private ArrayList<String> enteredCoordinates = new ArrayList<>();
     private boolean lost = false;
 
+    public boolean isLost() {
+        return lost;
+    }
+
+    public void setLost(boolean lost) {
+        this.lost = lost;
+    }
+
     public String[][] getMatrix() {
         return matrix;
     }
@@ -212,16 +220,12 @@ public class Board {
             case 'n':
             case 'N':
 
-                getMatrix();
-                getIntMatrix();
-                getEnteredCoordinates();
+                // getMatrix();
+                // getIntMatrix();
+                // getEnteredCoordinates();
 
-                setMatrix(matrix);
-                setIntMatrix(intMatrix);
-                setEnteredCoordinates(enteredCoordinates);
-
-                setupGameBoard();
-                playGame();
+                // setupGameBoard();
+                // playGame();
 
         }
 
@@ -305,10 +309,9 @@ public class Board {
                     }
                     System.out.println();
                 }
+                System.out.println("");
                 System.out.println("You lose :(");
-                // playAgain();
-
-                // System.exit(0);
+                System.out.println("");
                 hasLost();
                 break;
             } else {
@@ -329,9 +332,11 @@ public class Board {
                     }
                     System.out.println();
                 }
+                System.out.println("");
                 System.out.println("YOU WIN!!!");
+                System.out.println("");
             } else {
-                playAgain();
+                break;
             }
         }
 
