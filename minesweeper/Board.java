@@ -203,6 +203,7 @@ public class Board {
 
     }
 
+    // to-do: incorporate this menu and create a loop with it
     public void playAgain() {
 
         Scanner scanner = new Scanner(System.in);
