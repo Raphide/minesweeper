@@ -1,6 +1,6 @@
 # MINESWEEPER
 
-![Minesweeper](minesweeper.png)
+![Minesweeper](./minesweeper/minesweeper.png)
 
 ---
 
